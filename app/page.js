@@ -34,6 +34,44 @@ export default function Home() {
       description: "Vienna was nice...",
     },
   ]);
+  const [limit, setLimit] = useState(3);
+  const [firstPage] = useState(1);
+  const [lastPage, setLastPage] = useState(Math.ceil(blogs.length / limit));
+  const [currentPage, setCurrentPage] = useState(1);
+  const [displayBlogs, setDisplayBlogs] = useState([]);
+
+  const handlePrev = () => {
+    if (currentPage === firstPage) return;
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+    setDisplayBlogs(
+      blogs.slice((limit * newPage) - limit, limit * newPage)
+    );
+  };
+
+  const handleNext = () => {
+    if (currentPage === lastPage) return;
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    setDisplayBlogs(
+      blogs.slice((limit * newPage) - limit, limit * newPage)
+    );
+  };
+
+  
+  useEffect(() => {
+    console.log(currentPage)
+    setDisplayBlogs(blogs.slice((limit * currentPage) - limit, limit * currentPage));
+    /*
+    fetch("http://localhost:8080/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlogs(data);
+        setLastPage(data.length / limit);
+      });
+      */
+  },[]);
+  
 
   return (
     <main className="flex flex-col gap-8 row-start-2 sm:items-start font-mono m-2">
@@ -204,6 +242,23 @@ export default function Home() {
           </select>
         </form>
       </div>
+      <div className="flex flex-row w-full justify-center">
+        {blogs.length > limit ? (
+          <div className="space-x-2">
+            <button className="page-button" onClick={handlePrev}>
+              <span>&#60;</span>
+            </button>
+            <button className="page-button">1</button>
+            <span>...</span>
+            <button className="page-button">{lastPage}</button>
+            <button className="page-button" onClick={handleNext}>
+              <span>&#62;</span>
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
       <div className="flex w-full m-5">
         <div className="md:w-1/6 md:block hidden">
           <h2 className="text-xl mb-2">View by country</h2>
@@ -223,7 +278,7 @@ export default function Home() {
         <div className="md:w-5/6 w-full mr-10 items-stretch z-10 place-content-center justify-between font-mono text-sm">
           <div className="grid md:grid-cols-3 grid-cols-1 gap-4 m-2 items-center">
             {blogs.length > 0 ? (
-              blogs.map((b) => (
+              displayBlogs.map((b) => (
                 <Card
                   photo={b.photo}
                   title={b.title}

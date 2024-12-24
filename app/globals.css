@@ -19,3 +19,14 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.page-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.page-button:hover {
+  background-color: #a0a0a0
+}
