@@ -37,53 +37,52 @@ export default function Home() {
 
   return (
     <main className="flex flex-col gap-8 row-start-2 sm:items-start font-mono m-2">
-      <div className="flex flex-row w-full mb-4 p-4">
-        <div className="basis-2/6">
-          <h1 className="sm:text-4xl xs:text-xl font-bold">
+      <div className="flex flex-row w-full md:mb-4 md:p-4 p-3">
+        <div className="md:basis-2/6 basis-3/6 place-self-center">
+          <h1 className="sm:text-4xl text-xl font-bold">
             <a href="#">Travel Blog</a>
           </h1>
         </div>
-        <div className="basis-3/6">
-          <div className="md:hidden justify-self-end w-full">
-            <button
-              type="button"
-              data-collapse-target="collapse"
-              aria-controls="navbar-search"
-              aria-expanded="false"
-              className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
-            >
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
+        <div className="basis-3/6 justify-items-end">
+          <div className="flex flex-row md:hidden">
+            <div>
+              <button
+                type="button"
+                data-collapse-toggle="#collapse"
+                className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
               >
-                <path
-                  stroke="currentColor"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-              <span className="sr-only">Search</span>
-            </button>
-            <button
-              data-collapse-toggle="navbar-search"
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="navbar-search"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
+                <svg
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+                <span className="sr-only">Search</span>
+              </button>
+            </div>
+            <div>
+              <button
+                data-collapse-toggle="#collapse"
+                type="button"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
-                <path stroke="currentColor" d="M1 1h15M1 7h15M1 13h15" />
-              </svg>
-            </button>
+                <svg
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 17 14"
+                >
+                  <path stroke="currentColor" d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div className="relative w-full md:block hidden place-self-center">
             <form>
@@ -127,7 +126,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row w-full" data-collapse="collapse">
+      <div
+        className="flex flex-row w-full transition-all duration-300 hidden"
+        id="collapse"
+      >
         <div
           className="items-center justify-between md:hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-search"
@@ -183,9 +185,28 @@ export default function Home() {
           </ul>
         </div>
       </div>
+      <div className="flex flex-row w-full md:hidden">
+        <form className="max-w-sm mx-auto">
+          <label
+            htmlFor="countries"
+            className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+          >
+            View by country
+          </label>
+          <select
+            id="countries"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            defaultValue="default"
+          >
+            <option value="default">All</option>
+            <option value="Greece">Greece</option>
+            <option value="Hungary">Hungary</option>
+          </select>
+        </form>
+      </div>
       <div className="flex w-full m-5">
-        <div className="w-1/6">
-          <h2 className="text-2xl mb-2">View by country</h2>
+        <div className="md:w-1/6 md:block hidden">
+          <h2 className="text-xl mb-2">View by country</h2>
           <ul>
             <li>
               <a href="#" className="focus:font-bold hover:font-bold">
@@ -199,8 +220,8 @@ export default function Home() {
             </li>
           </ul>
         </div>
-        <div className="w-5/6 mr-10 items-stretch z-10 place-content-center justify-between font-mono text-sm">
-          <div className="grid grid-cols-3 gap-4 m-2 items-center">
+        <div className="md:w-5/6 w-full mr-10 items-stretch z-10 place-content-center justify-between font-mono text-sm">
+          <div className="grid md:grid-cols-3 grid-cols-1 gap-4 m-2 items-center">
             {blogs.length > 0 ? (
               blogs.map((b) => (
                 <Card
