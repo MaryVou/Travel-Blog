@@ -30,3 +30,7 @@ body {
 .page-button:hover {
   background-color: #a0a0a0
 }
+
+.page-button:focus{
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+}

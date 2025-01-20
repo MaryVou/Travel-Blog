@@ -12,7 +12,7 @@ export default function Card(props) {
           {props.title}
         </h1>
         <hr></hr>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <p className="mb-3 mt-3 h-5 overflow-hidden font-normal text-gray-700 dark:text-gray-400">
           {props.description}
         </p>
       </div>

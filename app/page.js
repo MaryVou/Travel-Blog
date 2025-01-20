@@ -44,24 +44,29 @@ export default function Home() {
     if (currentPage === firstPage) return;
     const newPage = currentPage - 1;
     setCurrentPage(newPage);
-    setDisplayBlogs(
-      blogs.slice((limit * newPage) - limit, limit * newPage)
-    );
+    setDisplayBlogs(blogs.slice(limit * newPage - limit, limit * newPage));
   };
 
   const handleNext = () => {
     if (currentPage === lastPage) return;
     const newPage = currentPage + 1;
     setCurrentPage(newPage);
+    setDisplayBlogs(blogs.slice(limit * newPage - limit, limit * newPage));
+  };
+
+  const handlePageSelect = (targetPage) => {
+    if (currentPage === targetPage) return;
+    setCurrentPage(targetPage);
     setDisplayBlogs(
-      blogs.slice((limit * newPage) - limit, limit * newPage)
+      blogs.slice(limit * targetPage - limit, limit * targetPage)
     );
   };
 
-  
   useEffect(() => {
-    console.log(currentPage)
-    setDisplayBlogs(blogs.slice((limit * currentPage) - limit, limit * currentPage));
+    console.log(currentPage);
+    setDisplayBlogs(
+      blogs.slice(limit * currentPage - limit, limit * currentPage)
+    );
     /*
     fetch("http://localhost:8080/blogs")
       .then((res) => res.json())
@@ -70,14 +75,13 @@ export default function Home() {
         setLastPage(data.length / limit);
       });
       */
-  },[]);
-  
+  }, []);
 
   return (
     <main className="flex flex-col gap-8 row-start-2 sm:items-start font-mono m-2">
       <div className="flex flex-row w-full md:mb-4 md:p-4 p-3">
         <div className="md:basis-2/6 basis-3/6 place-self-center">
-          <h1 className="sm:text-4xl text-xl font-bold">
+          <h1 className="text-xl font-bold">
             <a href="#">Travel Blog</a>
           </h1>
         </div>
@@ -227,7 +231,7 @@ export default function Home() {
         <form className="max-w-sm mx-auto">
           <label
             htmlFor="countries"
-            className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-lg font-semibold text-gray-900 dark:text-white"
           >
             View by country
           </label>
@@ -248,9 +252,14 @@ export default function Home() {
             <button className="page-button" onClick={handlePrev}>
               <span>&#60;</span>
             </button>
-            <button className="page-button">1</button>
-            <span>...</span>
-            <button className="page-button">{lastPage}</button>
+            <span>{currentPage}</span>
+            <span>of</span>
+            <button
+              className="page-button"
+              onClick={() => handlePageSelect(lastPage)}
+            >
+              {lastPage}
+            </button>
             <button className="page-button" onClick={handleNext}>
               <span>&#62;</span>
             </button>
@@ -261,7 +270,7 @@ export default function Home() {
       </div>
       <div className="flex w-full m-5">
         <div className="md:w-1/6 md:block hidden">
-          <h2 className="text-xl mb-2">View by country</h2>
+          <h2 className="text-xl mb-2 font-bold">View by country</h2>
           <ul>
             <li>
               <a href="#" className="focus:font-bold hover:font-bold">
